@@ -9,7 +9,7 @@ public class Logic implements Runnable{
 		this.proto = prototype;
 	}
 	public void run() {
-		while(true){
+		while(run){
 		proto.moveBall();
 		try {
 			Thread.sleep(2);

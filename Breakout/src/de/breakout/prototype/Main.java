@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		MainFrame main = new MainFrame();
 		Logic log = new Logic(main.getGamePanel());
-		Thread thread = new Thread(log);
+		main.setLogic(log);
 		main.getGamePanel().generateBlocks(new int[][] {
 				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 				{1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
@@ -18,6 +18,5 @@ public class Main {
 				{1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
 				{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 											});
-		thread.start();
 	}
 }

@@ -15,6 +15,8 @@ public class GameListener implements KeyListener{
 	
 	private static GameListener instance;
 	private Prototype proto;
+	private Logic log;
+	private Thread thread;
 	
 	private boolean right;
 	private boolean left;
@@ -22,9 +24,9 @@ public class GameListener implements KeyListener{
 	/**
 	 * Das Singelton-Pattern
 	 */
-	public static GameListener getInstance(Prototype proto) {
+	public static GameListener getInstance(Prototype proto, Logic log) {
 		if (instance == null) {
-			instance = new GameListener(proto);
+			instance = new GameListener(proto, log);
 		}
 		return instance;
 	}
@@ -32,8 +34,9 @@ public class GameListener implements KeyListener{
 	/**
 	 * Der Konstruktor
 	 */
-	GameListener(Prototype proto) {
+	GameListener(Prototype proto, Logic log) {
 		this.proto=proto;
+		this.log = log;
 		System.out.println(proto);
 	}
 	
@@ -54,8 +57,20 @@ public class GameListener implements KeyListener{
 			//right = true;
 			proto.movePaddle(false);
 		}
-		else if (arg0.getKeyCode() == 22){
-			
+		else if (arg0.getKeyCode() == 32){
+			//start Thread starten
+			log.setRun(true);
+			new Thread(log).start();
+			//thread.start();
+		}
+		else if (arg0.getKeyCode() == 27){
+			//esc Pause Game
+			log.setRun(false);
+			proto.switchBack();
+		}
+		else if (arg0.getKeyCode() == 80){
+			//pause Thread anhalten
+			log.setRun(false);
 		}
 
 	}
