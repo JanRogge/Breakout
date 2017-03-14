@@ -1,0 +1,10 @@
+Background = Space (Schwarz mit Sternen)
+Ball = Grün und kleiner mit rand
+Block = Verschiedene Space-Grautöne mit kanonen drauf etc
+Stick = Raumschiff
+Bigger = Schriftzug SIZE+
+smaller = Schritzug SIZE-
+Faster = 
+Slower =
+Pause = Pause Knopf
+Menü = Wie Background mit Hintergrund

@@ -3,6 +3,7 @@ package de.breakout.prototype;
 public class Logic implements Runnable{
 	
 	Prototype proto;
+	private boolean run;
 
 	public Logic(Prototype prototype){
 		this.proto = prototype;
@@ -19,6 +20,10 @@ public class Logic implements Runnable{
 		}
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setRun(boolean run){
+		this.run = run;
 	}
 
 }

@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Der GameListener sorgt dafür das das Spiel erkennt welche Taste gedrückt wird
+ * Der GameListener sorgt dafï¿½r das das Spiel erkennt welche Taste gedrï¿½ckt wird
  * @author Simeon Kublenz
  */
 public class GameListener implements KeyListener{
@@ -34,23 +34,28 @@ public class GameListener implements KeyListener{
 	 */
 	GameListener(Prototype proto) {
 		this.proto=proto;
+		System.out.println(proto);
 	}
 	
 	/**
-	 * wird aufgerufen wenn eine Taste gedrückt wurde
+	 * wird aufgerufen wenn eine Taste gedrï¿½ckt wurde
 	 */
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 
+		System.out.println("Heys");
 		System.out.println(arg0.getKeyCode());
-		if (KeyEvent.getKeyText((arg0.getKeyCode())).equals(leftKey)) {
+		if (arg0.getKeyCode() == 37) {
 			//left = true;
 			System.out.println("here");
 			proto.movePaddle(true);
 		}
-		else if (KeyEvent.getKeyText((arg0.getKeyCode())).equals(rightKey)) {
+		else if (arg0.getKeyCode() == 39) {
 			//right = true;
 			proto.movePaddle(false);
+		}
+		else if (arg0.getKeyCode() == 22){
+			
 		}
 
 	}
