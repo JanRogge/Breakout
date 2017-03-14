@@ -2,6 +2,10 @@ package de.breakout.prototype;
 
 public class Main {
 
+	/**
+	 * Hallo das ist ein Kommentar
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		MainFrame main = new MainFrame();
 		Logic log = new Logic(main.getGamePanel());
