@@ -25,7 +25,7 @@ public class MenuPanel extends JPanel{
 	
 	public MenuPanel(){
 		setSize(800, 600);
-		setBorder(new EmptyBorder(5, 5, 5, 5));
+		setBorder(new EmptyBorder(0, 0, 0, 0));
 		setLayout(null);
 	
 		

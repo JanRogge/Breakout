@@ -59,8 +59,10 @@ public class GameListener implements KeyListener{
 		}
 		else if (arg0.getKeyCode() == 32){
 			//start Thread starten
-			log.setRun(true);
-			new Thread(log).start();
+			if(!log.getRun()){
+				log.setRun(true);
+				new Thread(log).start();
+			}
 			//thread.start();
 		}
 		else if (arg0.getKeyCode() == 27){

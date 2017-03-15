@@ -4,13 +4,22 @@ public class Logic implements Runnable{
 	
 	Prototype proto;
 	private boolean run;
+	Ball ball;
 
 	public Logic(Prototype prototype){
 		this.proto = prototype;
+		ball = new Ball(this);
 	}
 	public void run() {
 		while(run){
-		proto.moveBall();
+			//System.out.println(proto.getPaddleX());
+		if(ball.move(proto.getBlocks(),proto.getPaddleX())){
+			proto.decreaseLive();
+			proto.testmove(1000, 1000);
+			ball = new Ball(this);
+			run = false;
+		}
+		proto.testmove(ball.getX(), ball.getY());
 		try {
 			Thread.sleep(2);
 		} catch (InterruptedException e) {
@@ -24,6 +33,12 @@ public class Logic implements Runnable{
 	
 	public void setRun(boolean run){
 		this.run = run;
+	}
+	public boolean getRun(){
+		return run;
+	}
+	public void blockhit(int column, int row){
+		proto.removeBlock(column, row);
 	}
 
 }

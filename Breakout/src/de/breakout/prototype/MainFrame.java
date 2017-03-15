@@ -11,7 +11,6 @@ public class MainFrame extends JFrame{
 	private static final long serialVersionUID = -1946965675021998367L;
 	private Prototype startGui = new Prototype();
 	private MenuPanel menu = new MenuPanel();
-	private Logic log;
 	private final Dimension d = this.getToolkit().getScreenSize();
 	public MainFrame() {
 		//setAlwaysOnTop(true);
@@ -40,7 +39,6 @@ public class MainFrame extends JFrame{
 		requestFocusInWindow();
 	}
 	public void setLogic(Logic log){
-		this.log = log;
 		addKeyListener(GameListener.getInstance(startGui, log));
 	}
 }

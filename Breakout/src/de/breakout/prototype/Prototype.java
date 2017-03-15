@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -21,8 +22,10 @@ public class Prototype extends JPanel {
 	private Image img = null;
 	private JLabel ball;
 	private JLabel paddle;
-	private int z = 1;
-	private int y = 1;
+	private JLabel blocksdestoryed;
+	private JLabel live;
+	private int counter = 0;
+	private int lives = 3;
 	private Block[][] labellist;
 	public static final int HEIGHT = 30;
 	public static final int WIDHT = 50;
@@ -37,7 +40,7 @@ public class Prototype extends JPanel {
 		setLayout(null);
 		
 		paddle = new JLabel("");
-		paddle.setOpaque(true);
+		paddle.setOpaque(false);
 		paddle.setBackground(Color.BLACK);
 		paddle.setBounds(350, 570, 130, 25);
 		ImageIcon imageForOne = new ImageIcon("images/stick.png");
@@ -45,12 +48,26 @@ public class Prototype extends JPanel {
 		add(paddle);
 		
 		ball = new JLabel("");
-		ball.setOpaque(true);
+		ball.setOpaque(false);
 		ball.setBackground(Color.BLACK);
-		ball.setBounds(350, 500, 25, 25);
+		ball.setBounds(388, 540, 25, 25);
 		ImageIcon imageForTwo = new ImageIcon("images/ball.png");
 		ball.setIcon(imageForTwo);
 		add(ball);
+		
+		blocksdestoryed = new JLabel("0 Blöcke zerstört");
+		blocksdestoryed.setForeground(Color.WHITE);
+		blocksdestoryed.setFont(new Font("Arial", Font.PLAIN, 20));
+		blocksdestoryed.setBounds(5, 520, 180, 20);
+		add(blocksdestoryed);
+		
+		live = new JLabel("3 Leben");
+		live.setForeground(Color.WHITE);
+		live.setFont(new Font("Arial", Font.PLAIN, 20));
+		live.setBounds(5, 550, 180, 20);
+		add(live);
+		
+		
 		
 		try {
 			ImageIcon u = new ImageIcon("images/background.png");
@@ -61,6 +78,26 @@ public class Prototype extends JPanel {
 		}
 	}
 	
+	public void addCounter(){
+		counter ++;
+		blocksdestoryed.setText(counter + " Blöcke zerstört");
+	}
+	public void decreaseLive(){
+		if(lives > 1){
+			lives --;
+			live.setText(lives + " Leben");
+		} else{
+			lives --;
+			live.setText(lives + " Leben");
+			gameende();
+		}
+		
+	}
+	
+	public int getPaddleX(){
+		return paddle.getX();
+	}
+	
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D f2 = (Graphics2D) g;
@@ -69,16 +106,10 @@ public class Prototype extends JPanel {
 		g.setColor(Color.RED);
 	}
 	
-	public void moveBall(){
-			ball.setLocation((int) ball.getLocation().getX()-y, (int) ball.getLocation().getY());
-			if(hit()){
-				y=y*(-1);
-			} else if(hit() && ball.getLocation().getX() == 0){
-				y=y*(-1);
-			}
-			repaint();
-			revalidate();
-			
+	public void testmove(int x, int y){
+		ball.setLocation(x, y);
+		repaint();
+		revalidate();
 	}
 	/**
 	 * 
@@ -86,63 +117,20 @@ public class Prototype extends JPanel {
 	 * 					false = right
 	 */
 	public void movePaddle(boolean direction){
-		if(direction)
-			paddle.setLocation((int) paddle.getLocation().getX()-1, (int) paddle.getLocation().getY());
-		else
-			paddle.setLocation((int) paddle.getLocation().getX()+1, (int) paddle.getLocation().getY());
+		if(direction && paddle.getLocation().getX()-5 > 0)
+			paddle.setLocation((int) paddle.getLocation().getX()-5, (int) paddle.getLocation().getY());
+		else if(!direction && paddle.getLocation().getX()+5 < 670)
+			paddle.setLocation((int) paddle.getLocation().getX()+5, (int) paddle.getLocation().getY());
 	}
 	public void removeBlock(int column, int row){
 		remove(labellist[row][column]);
 		repaint();
 		revalidate();
-		//call block destoryed
+		addCounter();
 	}
 	public void gameende(){
 		JOptionPane.showMessageDialog(null, "Ende", "You lose!", JOptionPane.ERROR_MESSAGE);
-	}
-	public boolean hit(){
-		//Paddle hit
-		if(ball.getLocation().getY()+1+ball.getHeight() == paddle.getLocation().getY() && 
-				(ball.getLocation().getX() >= paddle.getLocation().getX() && ball.getLocation().getX()+ball.getWidth() <= paddle.getLocation().getX()+paddle.getWidth())){
-			return true;
-		}
-		//Block hit
-		if(ball.getLocation().getY() < 325){
-			for(int y = 1;y <=labellist.length;y++){
-				for(int x = 1;x <=labellist[y-1].length;x++){
-					if(labellist[y-1][x-1] != null){
-						if(ball.getLocation().getY() == labellist[y-1][x-1].getY()+labellist[y-1][x-1].getHeight() &&
-							(ball.getLocation().getX() >= labellist[y-1][x-1].getLocation().getX() && ball.getLocation().getX()+ball.getWidth() <= labellist[y-1][x-1].getLocation().getX()+labellist[y-1][x-1].getWidth())){
-							System.out.println("hit");
-							if(labellist[y-1][x-1].getHealth() > 1){
-								labellist[y-1][x-1].reduceHealth();
-							} else{
-								removeBlock(x-1, y-1);
-								labellist[y-1][x-1]=null;
-							}
-							
-							return true;
-						}
-					}
-					
-				}
-			}
-				
-		} else if(ball.getLocation().getY() == 600){
-			gameende();
-		}
-		//Wall hit
-		if(ball.getLocation().getY() == 0){
-			return true;
-		}
-		if(ball.getLocation().getX() == 0.0){
-			System.out.println("hey");
-			return true;
-		}
-		if(ball.getLocation().getX()+ball.getWidth() == 800){
-			return true;
-		}
-		return false;
+		switchBack();
 	}
 	public void generateBlocks(int[][] list){
 		labellist = new Block[10][16];
@@ -168,5 +156,9 @@ public class Prototype extends JPanel {
 	}
 	public void switchBack(){
 		((MainFrame) this.getParent().getParent().getParent()).switchPanel();
+	}
+	public Block[][] getBlocks(){
+		return labellist;
+		
 	}
 }
