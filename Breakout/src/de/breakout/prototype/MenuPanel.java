@@ -32,20 +32,51 @@ public class MenuPanel extends JPanel{
 		ImageIcon imageForOne = new ImageIcon("images/entry.png");
 		
 		
-		JButton test = new JButton("Start", imageForOne);
-		test.setHorizontalTextPosition(SwingConstants.CENTER);
-		test.setBounds(40, 150, 360, 95);
-		test.setForeground(Color.WHITE);
-		test.setFont(new Font("Arial", Font.PLAIN, 40));
-		test.setOpaque(false);
-		test.setFocusPainted(false);
-		test.setBorderPainted(false);
-		test.addActionListener(e ->{
+		JButton start = new JButton("New Game", imageForOne);
+		start.setHorizontalTextPosition(SwingConstants.CENTER);
+		start.setBounds(40, 130, 360, 95);
+		start.setForeground(Color.WHITE);
+		start.setFont(new Font("Arial", Font.PLAIN, 40));
+		start.setOpaque(false);
+		start.setFocusPainted(false);
+		start.setBorderPainted(false);
+		start.addActionListener(e ->{
+			((MainFrame) this.getParent().getParent().getParent()).newGame();
 			((MainFrame) this.getParent().getParent().getParent()).switchPanel();
 		});
-		test.setContentAreaFilled(false);
-		test.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
-		this.add(test);
+		start.setContentAreaFilled(false);
+		start.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		this.add(start);
+		
+		JButton play = new JButton("Resume", imageForOne);
+		play.setHorizontalTextPosition(SwingConstants.CENTER);
+		play.setBounds(40, 230, 360, 95);
+		play.setForeground(Color.WHITE);
+		play.setFont(new Font("Arial", Font.PLAIN, 40));
+		play.setOpaque(false);
+		play.setFocusPainted(false);
+		play.setBorderPainted(false);
+		play.addActionListener(e ->{
+			((MainFrame) this.getParent().getParent().getParent()).switchPanel();
+		});
+		play.setContentAreaFilled(false);
+		play.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		this.add(play);
+		
+		JButton close = new JButton("Exit", imageForOne);
+		close.setHorizontalTextPosition(SwingConstants.CENTER);
+		close.setBounds(40, 480, 360, 95);
+		close.setForeground(Color.WHITE);
+		close.setFont(new Font("Arial", Font.PLAIN, 40));
+		close.setOpaque(false);
+		close.setFocusPainted(false);
+		close.setBorderPainted(false);
+		close.addActionListener(e ->{
+			System.exit(0);
+		});
+		close.setContentAreaFilled(false);
+		close.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
+		this.add(close);
 		
 		try {
 			ImageIcon u = new ImageIcon("images/menu.png");

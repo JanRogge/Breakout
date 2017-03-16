@@ -23,7 +23,7 @@ public class Ball {
 	 * 			true = rechts
 	 */
 	public Ball(Logic log) {
-		//x = 540;
+		//y = 540;
 		x = 388;
 		//y=110;
 		y= 70;
@@ -72,8 +72,8 @@ public class Ball {
 			//speedUp();
 			System.out.println("Hit Oben");
 			double y1 = hitWall(altX - (altY - 1)/(altY - y) * (altX - x), false); //y position bei 1
-				angle = 180 * angle / Math.abs(angle) - angle;
-				y = 2 - y;
+			angle = 180 * angle / Math.abs(angle) - angle;
+			y = 2 - y;
 		}
 		else if (y < 301){
 			boolean alreadychanged = false;
@@ -86,9 +86,11 @@ public class Ball {
 							System.out.println("Hit block");
 							if(block[q-1][w-1].getHealth() > 1){
 								block[q-1][w-1].reduceHealth();
+								playSound(true);
 							} else{
 								log.blockhit(w-1, q-1);
 								block[q-1][w-1]=null;
+								playSound(true);
 							}
 							if(!alreadychanged){
 								hitWall(altX - (altY - 301)/(altY - y) * (altX - x), false);
@@ -108,8 +110,10 @@ public class Ball {
 							System.out.println("Hit block");
 							if(block[q-1][w-1].getHealth() > 1){
 								block[q-1][w-1].reduceHealth();
+								playSound(true);
 							} else{
 								log.blockhit(w-1, q-1);
+								playSound(true);
 								block[q-1][w-1]=null;
 							}
 							if(!alreadychanged){
@@ -131,8 +135,10 @@ public class Ball {
 							System.out.println(y);
 							if(block[q-1][w-1].getHealth() > 1){
 								block[q-1][w-1].reduceHealth();
+								playSound(true);
 							} else{
 								log.blockhit(w-1, q-1);
+								playSound(true);
 								block[q-1][w-1]=null;
 							}
 							if(!alreadychanged){
@@ -150,8 +156,10 @@ public class Ball {
 							System.out.println(y);
 							if(block[q-1][w-1].getHealth() > 1){
 								block[q-1][w-1].reduceHealth();
+								playSound(true);
 							} else{
 								log.blockhit(w-1, q-1);
+								playSound(true);
 								block[q-1][w-1]=null;
 							}
 							if(!alreadychanged){
@@ -168,9 +176,9 @@ public class Ball {
 		else if (y > 550) { //Kollision auf der unteren Seite
 			//speedUp();
 			System.out.println("Hit Unten");
-			double y64 = hitWall(altX - (altY - 550)/(altY - y) * (altX - x), false); //y position bei 64
-			System.out.println(y64);
-			if (posPlayer2 < y64 && y64 < posPlayer2 + 130) { //Schläger getroffen
+			double x550 = hitWall(altX - (altY - 550)/(altY - y) * (altX - x), false); //x position bei 64
+			System.out.println(x550);
+			if (posPlayer2 < x550 && x550 < posPlayer2 + 130) { //Schläger getroffen
 				if (angle == 0) {
 					angle = 180;
 				}
@@ -178,6 +186,7 @@ public class Ball {
 					angle = 180 * angle/Math.abs(angle) - angle;
 				}
 				y = 1100 - y;
+				playSound(false);
 			}
 			else {
 				end = true;
@@ -206,6 +215,14 @@ public class Ball {
 			System.out.println("Hit Rechts");//Invertiert den Winkel wenn turnAngle
 		}
 		return x;
+	}
+	
+	public void playSound(boolean block){
+		if(block){
+			SoundClips.getInstance().setFile(1);
+		} else{
+			SoundClips.getInstance().setFile(2);
+		}
 	}
 	
 	/**

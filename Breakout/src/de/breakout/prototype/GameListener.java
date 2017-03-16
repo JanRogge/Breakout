@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 /**
  * Der GameListener sorgt daf�r das das Spiel erkennt welche Taste gedr�ckt wird
- * @author Simeon Kublenz
+ * @author Jan
  */
 public class GameListener implements KeyListener{
 	
@@ -16,7 +16,6 @@ public class GameListener implements KeyListener{
 	private static GameListener instance;
 	private Prototype proto;
 	private Logic log;
-	private Thread thread;
 	
 	private boolean right;
 	private boolean left;
@@ -82,12 +81,6 @@ public class GameListener implements KeyListener{
 	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		if (KeyEvent.getKeyText((arg0.getKeyCode())).equals(leftKey)) {
-			left = false;
-		}
-		else if (KeyEvent.getKeyText((arg0.getKeyCode())).equals(rightKey)) {
-			right = false;
-		}
 	}
 
 	@Override

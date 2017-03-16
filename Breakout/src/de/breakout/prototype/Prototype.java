@@ -79,6 +79,7 @@ public class Prototype extends JPanel {
 	}
 	
 	public void addCounter(){
+		System.out.println("WTF");
 		counter ++;
 		blocksdestoryed.setText(counter + " Blöcke zerstört");
 	}
@@ -159,6 +160,25 @@ public class Prototype extends JPanel {
 	}
 	public Block[][] getBlocks(){
 		return labellist;
+		
+	}
+	public void newGame(){
+		lives = 3;
+		counter = 0;
+		live.setText(lives + " Leben");
+		blocksdestoryed.setText(counter + " Blöcke zerstört");
+		clear();
+	}
+	public void clear(){
+		if(labellist != null){
+			for(int y = 1;y <=labellist.length;y++){
+				for(int x = 1;x <=labellist[y-1].length;x++){
+					if(labellist[y-1][x-1] != null){
+						remove(labellist[y-1][x-1]);
+					}
+				}
+			}
+		}
 		
 	}
 }

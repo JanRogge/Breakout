@@ -11,7 +11,9 @@ public class MainFrame extends JFrame{
 	private static final long serialVersionUID = -1946965675021998367L;
 	private Prototype startGui = new Prototype();
 	private MenuPanel menu = new MenuPanel();
+	private Logic log;
 	private final Dimension d = this.getToolkit().getScreenSize();
+	private BackgroundSounds bg;
 	public MainFrame() {
 		//setAlwaysOnTop(true);
 		setTitle("Breakout");
@@ -26,6 +28,9 @@ public class MainFrame extends JFrame{
 		setVisible(true);
 		
 		requestFocusInWindow();
+		
+		bg = new BackgroundSounds(true);
+		bg.start();
 	}
 	public Prototype getGamePanel() {
 		return startGui;
@@ -33,12 +38,18 @@ public class MainFrame extends JFrame{
 	public void switchPanel(){
 		if(getContentPane() == startGui){
 			setContentPane(menu);
+			bg.setMenu(true);
 		} else{
 			setContentPane(startGui);
+			bg.setMenu(false);
 		}
 		requestFocusInWindow();
 	}
 	public void setLogic(Logic log){
+		this.log = log;
 		addKeyListener(GameListener.getInstance(startGui, log));
+	}
+	public void newGame(){
+		log.newGame();
 	}
 }
