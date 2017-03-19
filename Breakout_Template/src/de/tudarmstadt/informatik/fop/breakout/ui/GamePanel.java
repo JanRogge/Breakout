@@ -75,6 +75,10 @@ public class GamePanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Zeigt den Spieler auf dem panel an 
+	 * @param player Player Object(JLabel)
+	 */
 	public void showPlayer(Player player){
 		if(paddle != null){
 			remove(paddle);
@@ -83,11 +87,18 @@ public class GamePanel extends JPanel {
 		add(paddle);
 	}
 	
+	/**
+	 * Fuegt dem Counter der zerstörten Bloecke eins zu
+	 */
 	public void addCounter(){
 		counter ++;
 		blocksdestoryed.setText(counter + " Bloecke zerstoert");
 	}
 	
+	/**
+	 * Setzt die Anzeige der Leben auf die uebergebene Anzahk
+	 * @param lives Leben des Spielers
+	 */
 	public void livecounter(int lives){
 		live.setText(lives + " Leben");
 	}
@@ -103,12 +114,18 @@ public class GamePanel extends JPanel {
 		g.setColor(Color.RED);
 	}
 	
+	/**
+	 * Bewegt den Ball an die uebergebene Position
+	 * @param x X-Position des Balls
+	 * @param y Y-Position des Balls
+	 */
 	public void moveBall(int x, int y){
 		ball.setLocation(x, y);
 		repaint();
 		revalidate();
 	}
 	/**
+	 * Bewegt die schlaeger in die uebergebene richtung
 	 * 
 	 * @param direction true = left
 	 * 					false = right
@@ -119,6 +136,12 @@ public class GamePanel extends JPanel {
 		else if(!direction && paddle.getLocation().getX()+5 < 670)
 			paddle.setLocation((int) paddle.getLocation().getX()+5, (int) paddle.getLocation().getY());
 	}
+	/**
+	 * Entfernt einen Block vom Panel
+	 * 
+	 * @param column X-Position des Blocks im Array
+	 * @param row Y-Position des Blocks im Array
+	 */
 	public void removeBlock(int column, int row){
 		remove(labellist[row][column]);
 		labellist[row][column] = null; //NEU
@@ -126,6 +149,12 @@ public class GamePanel extends JPanel {
 		revalidate();
 		addCounter();
 	}
+	
+	/**
+	 * Zeigt eine End Nachricht mit der Informationen ob der Spieler gewonnen(win = true) oder verloren(win = false) hat
+	 * Das Panel wird zum Menu Panel gewechselt
+	 * @param win boolean ob der Spieler gewonnen hat
+	 */
 	public void gameende(boolean win){
 		
 		if(win){
@@ -136,6 +165,11 @@ public class GamePanel extends JPanel {
 		((MainFrame) this.getParent().getParent().getParent()).setfirstGame(true);;
 		switchBack();
 	}
+	
+	/**
+	 * Fuegt die Liste der Bloecke zum Spielfeld hinzu
+	 * @param list
+	 */
 	public void generateBlocks(Block[][] list){
 		labellist = list;
 		for(int y = 1;y <=list.length;y++){
@@ -149,13 +183,26 @@ public class GamePanel extends JPanel {
 		repaint();
 		revalidate();
 	}
+	
+	/**
+	 * Wechselt das Panel zum Menupanel
+	 */
 	public void switchBack(){
 		((MainFrame) this.getParent().getParent().getParent()).switchPanel();
 	}
+	
+	/**
+	 * Gibt die Liste an Bloecken zurueck
+	 * @return labelList liste an Bloecken
+	 */
 	public Block[][] getBlocks(){
 		return labellist;
 		
 	}
+	
+	/**
+	 * Setzt die anzeige für ein neues Spiel zueurck
+	 */
 	public void newGame(){
 		lives = 3;
 		counter = 0;
@@ -163,6 +210,10 @@ public class GamePanel extends JPanel {
 		blocksdestoryed.setText(counter + " Bloecke zerstoert");
 		clear();
 	}
+	
+	/**
+	 * Loescht alle Bloecke vom Spielfeld
+	 */
 	public void clear(){
 		if(labellist != null){
 			for(int y = 1;y <=labellist.length;y++){
