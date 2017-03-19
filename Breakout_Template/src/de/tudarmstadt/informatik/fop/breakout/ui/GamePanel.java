@@ -15,11 +15,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+/**
+ * Anzeige des Spiels
+ * 
+ * @author Jan Rogge
+ *
+ */
 public class GamePanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -5517963883061423236L;
 	private Image img = null;
 	private JLabel ball;
@@ -49,7 +52,7 @@ public class GamePanel extends JPanel {
 		ball.setIcon(imageForTwo);
 		add(ball);
 		
-		blocksdestoryed = new JLabel("0 Bl�cke zerst�rt");
+		blocksdestoryed = new JLabel("0 Bloecke zerstoert");
 		blocksdestoryed.setForeground(Color.WHITE);
 		blocksdestoryed.setFont(new Font("Arial", Font.PLAIN, 20));
 		blocksdestoryed.setBounds(5, 520, 180, 20);
@@ -68,24 +71,30 @@ public class GamePanel extends JPanel {
 			img = u.getImage();
 		} catch (Exception e) {
 			System.out
-					.println("<ERROR> Kein Bild f�r diese Aktion vorhanden!!!");
+					.println("<ERROR> Kein Bild fuer diese Aktion vorhanden!!!");
 		}
 	}
 	
 	public void showPlayer(Player player){
+		if(paddle != null){
+			remove(paddle);
+		}
 		paddle = player;
 		add(paddle);
 	}
 	
 	public void addCounter(){
 		counter ++;
-		blocksdestoryed.setText(counter + " Bl�cke zerst�rt");
+		blocksdestoryed.setText(counter + " Bloecke zerstoert");
 	}
 	
 	public void livecounter(int lives){
 		live.setText(lives + " Leben");
 	}
 	
+	/**
+	 * Neue Paint methode die ein Hintergrundbild einfuegt
+	 */
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D f2 = (Graphics2D) g;
@@ -124,6 +133,7 @@ public class GamePanel extends JPanel {
 		} else{
 			JOptionPane.showMessageDialog(null, "Ende", "You lose!", JOptionPane.ERROR_MESSAGE);
 		}
+		((MainFrame) this.getParent().getParent().getParent()).setfirstGame(true);;
 		switchBack();
 	}
 	public void generateBlocks(Block[][] list){
@@ -150,7 +160,7 @@ public class GamePanel extends JPanel {
 		lives = 3;
 		counter = 0;
 		live.setText(lives + " Leben");
-		blocksdestoryed.setText(counter + " Bl�cke zerst�rt");
+		blocksdestoryed.setText(counter + " Bloecke zerstoert");
 		clear();
 	}
 	public void clear(){

@@ -7,23 +7,33 @@ import javax.swing.JLabel;
 
 import de.tudarmstadt.informatik.fop.breakout.interfaces.IHitable;
 
+/**
+ * Spieler Objekt 
+ * 
+ * Treffbar und JLabel
+ * 
+ * @author Jan Rogge
+ *
+ */
 public class Player extends JLabel implements IHitable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int lives;
 	private Logic log;
 	
+	/**
+	 * Konstruktor Initialisiert alle wichtigen Werte
+	 * 
+	 * @param log Logic Object in der das Spiel läuft
+	 */
 	public Player(Logic log){
 		this.log = log;
 		lives = 3;
 		setOpaque(false);
 		setBackground(Color.BLACK);
 		setBounds(350, 570, 130, 25);
-		ImageIcon imageForOne = new ImageIcon("images/stick.png");
-		setIcon(imageForOne);
+		ImageIcon imageForPaddle = new ImageIcon("images/stick.png"); //Schlaeger bild
+		setIcon(imageForPaddle);
 	}
 
 	@Override
@@ -53,10 +63,19 @@ public class Player extends JLabel implements IHitable{
 		return true;
 	}
 	
+	/**
+	 * Gibt die X-Position des Schlaegers im Panel zurueck
+	 * 
+	 * @return getX() X Position des Schlaegers
+	 */
 	public int getPaddleX(){
 		return getX();
 	}
 	
+	/**
+	 * Reduziert die Leben des Spielers um eins
+	 * Und beendet das Spiel falls keine Leben mehr vorhanden sind
+	 */
 	public void decreaseLive(){
 		if(lives > 1){
 			lives --;

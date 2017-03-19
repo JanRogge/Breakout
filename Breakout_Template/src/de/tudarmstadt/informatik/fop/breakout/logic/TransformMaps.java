@@ -4,20 +4,36 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Transformer für die Maps in 2D int Arrays
+ * 
+ * @author Adriano
+ *
+ */
 public class TransformMaps {
 	Scanner in;
 	String path;
 	
+	/**
+	 * Konstruktor waehlt aus welche Map geladen werden soll
+	 * 
+	 * @param map ID der Map die geladen werden soll
+	 */
 	public TransformMaps(int map){
 		if(map == 1){
 		path = "maps/level1.map";
 		} else if(map == 2){
-			path = "maps/level3.map";
+			path = "maps/level2.map";
 		} else if(map == 3){
 			path = "maps/level3.map";
 		} 
 		
 	}
+	/**
+	 * Erstellt aus einer .map Datei ein 2-Dimensionales int Array mit den Werten aus der Datei
+	 * 
+	 * @return myMaps 2D int Array 
+	 */
 	public int[][] loadMap() {
 		int[][] myMaps = new int[10][16];
 		try {

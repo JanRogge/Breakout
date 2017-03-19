@@ -10,9 +10,9 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.FloatControl;
 
 /**
- * Sound ist dafür verantwortlich dass die Hintergrundmusik abgespielt wird
+ * SoundClips ist dafuer verantwortlich dass die Hintergrundmusik abgespielt wird
  * 
- * @author Jan
+ * @author Jan Rogge
  */
 public class SoundClips extends Thread {
 	private static SoundClips instance;
@@ -46,6 +46,9 @@ public class SoundClips extends Thread {
 	long i;
 	long temp;
 	
+	/**
+	 * Das Singelton-Pattern
+	 */
 	public static SoundClips getInstance() {
 		if (instance == null) {
 			instance = new SoundClips();
@@ -53,6 +56,9 @@ public class SoundClips extends Thread {
 		return instance;
 	}
 
+	/**
+	 * Der Konstruktor laedt alle soundclips
+	 */
 	SoundClips() {
 		load();
 		load2();
@@ -60,12 +66,16 @@ public class SoundClips extends Thread {
 		load4();
 	}
 	
+	/**
+	 * Setzt die zu Abspielende SoundFile
+	 * @param file int File auswahl
+	 */
 	public void setFile(int file){
 		this.file = file;
 	}
 
 	/**
-	 * Spielt die Hintergrundmusik ab
+	 * Spielt die SoundClips ab
 	 */
 	public void run() {
 		while(true){
@@ -73,25 +83,25 @@ public class SoundClips extends Thread {
 				if(file == 1){
 					music.setMicrosecondPosition(0);
 					music.start();
-					sleep(1000);
+					sleep(250);
 					music.stop();
 					file = 0;
 				} else if(file == 2){
 					music2.setMicrosecondPosition(0);
 					music2.start();
-					sleep(1000);
+					sleep(250);
 					music2.stop();
 					file = 0;
 				} else if(file == 3){
 					music3.setMicrosecondPosition(0);
 					music3.start();
-					sleep(1000);
+					sleep(1200);
 					music3.stop();
 					file = 0;
 				} else if(file == 4){
 					music4.setMicrosecondPosition(0);
 					music4.start();
-					sleep(1000);
+					sleep(1200);
 					music4.stop();
 					file = 0;
 				} else {
@@ -108,6 +118,9 @@ public class SoundClips extends Thread {
 
 	}
 
+	/**
+	 * Laedt Song1 (hit Block)
+	 */
 	public void load() {
 		try {
 			song = AudioSystem.getAudioInputStream(new File(
@@ -121,13 +134,16 @@ public class SoundClips extends Thread {
 			music.open(audioFormat, sound, 0, size);
 			gainControl = (FloatControl) music
 					.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
+			gainControl.setValue(-40.0f); // Reduce volume by 10 decibels.
 		} catch (Exception e) {
 
 		}
 
 	}
 
+	/**
+	 * Laedt Song2 (Hit Stick)
+	 */
 	public void load2() {
 		try {
 			song2 = AudioSystem.getAudioInputStream(new File(
@@ -141,13 +157,16 @@ public class SoundClips extends Thread {
 			music2.open(audioFormat2, sound2, 0, size2);
 			gainControl = (FloatControl) music2
 					.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
+			gainControl.setValue(-40.0f); // Reduce volume by 10 decibels.
 		} catch (Exception e) {
 
 		}
 
 	}
 	
+	/**
+	 * Laedt Song3 (Game Start)
+	 */
 	public void load3() {
 		try {
 			song3 = AudioSystem.getAudioInputStream(new File(
@@ -161,13 +180,16 @@ public class SoundClips extends Thread {
 			music3.open(audioFormat3, sound3, 0, size3);
 			gainControl = (FloatControl) music3
 					.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
+			gainControl.setValue(-20.0f); // Reduce volume by 10 decibels.
 		} catch (Exception e) {
 
 		}
 
 	}
 	
+	/**
+	 * Laedt Song4 (Game Ende)
+	 */
 	public void load4() {
 		try {
 			song4 = AudioSystem.getAudioInputStream(new File(
@@ -181,7 +203,7 @@ public class SoundClips extends Thread {
 			music4.open(audioFormat4, sound4, 0, size4);
 			gainControl = (FloatControl) music4
 					.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
+			//gainControl.setValue(-20.0f); // Reduce volume by 10 decibels.
 		} catch (Exception e) {
 
 		}

@@ -13,16 +13,27 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * Anzeige des Menues
+ * 
+ * @author Jan Rogge
+ *
+ */
 public class MenuPanel extends JPanel{
 
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -1194014926350278896L;
 	private Image img = null;
 	
-	
+	/**
+	 * Create the Panel.
+	 * 
+	 * Buttons:
+	 * New Game, Resume und Exit mit Funktionen
+	 * 
+	 * Laedt alle Bilder
+	 * 
+	 */
 	public MenuPanel(){
 		setSize(800, 600);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -91,6 +102,9 @@ public class MenuPanel extends JPanel{
 		}
 	}
 	
+	/**
+	 * Neue Paint methode die ein Hintergrundbild einfuegt
+	 */
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D f2 = (Graphics2D) g;

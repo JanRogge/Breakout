@@ -6,10 +6,13 @@ import javax.swing.JFrame;
 
 import de.tudarmstadt.informatik.fop.breakout.logic.Logic;
 
+/**
+ * Hauptfenster in dem die Panel liegen
+ * @author Jan Rogge
+ *
+ */
 public class MainFrame extends JFrame{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -1946965675021998367L;
 	private GamePanel startGui = new GamePanel();
 	private MenuPanel menu = new MenuPanel();
@@ -17,14 +20,15 @@ public class MainFrame extends JFrame{
 	private boolean firstgame = true;
 	private final Dimension d = this.getToolkit().getScreenSize();
 	private BackgroundSounds bg;
+	
+	/**
+	 * Konstruktor erzeugt das Frame
+	 */
 	public MainFrame() {
-		//setAlwaysOnTop(true);
 		setTitle("Breakout");
 		setLayout(null);
 		setResizable(false);
-		//setContentPane(startGui);
 		setContentPane(menu);
-		//setSize(startGui.getWidth() - 10, startGui.getHeight() + 13); 
 		setSize(menu.getWidth() - 10, menu.getHeight() + 13); 
 		setLocation((int) ((d.getWidth() - this.getWidth()) / 2), (int) ((d.getHeight() - this.getHeight()) / 2)); //Positioniert dsa Fenster in der Mitte des Bildschirms
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -35,9 +39,17 @@ public class MainFrame extends JFrame{
 		bg = new BackgroundSounds(true);
 		bg.start();
 	}
+	/**
+	 * Gibt das Panel zureuck in dem das Spiel laeuft
+	 * @return GamePanel startGui
+	 */
 	public GamePanel getGamePanel() {
 		return startGui;
 	}
+	
+	/**
+	 * Toggle zwischen dem Menu und GamePanel
+	 */
 	public void switchPanel(){
 		if(getContentPane() == startGui){
 			setContentPane(menu);
@@ -48,16 +60,36 @@ public class MainFrame extends JFrame{
 		}
 		requestFocusInWindow();
 	}
+	
+	/**
+	 * Setzt die Logic für den KeyListener
+	 * @param log Logic die im KeyListener verwendet wird
+	 */
 	public void setLogic(Logic log){
 		this.log = log;
 		addKeyListener(GameListener.getInstance(startGui, log));
 	}
+	
+	/**
+	 * Startet ein neues Spiel auf der GUI
+	 */
 	public void newGame(){
 			log.newGame();
 			startGui.moveBall(388, 540);
 			firstgame = false;	
 	}
+	/**
+	 * Gibt zureuck ob beim druck auf Resume ein neues Spiel gestartet werden soll oder noch ein altes vorhanden ist
+	 * @return boolean firstgame
+	 */
 	public boolean getfirstGame(){
 		return firstgame;
+	}
+	/**
+	 * Setzt die boolean firstgame 
+	 * @param game boolean ob beim resume druecken ein neues spiel gestartet werden soll oder nicht
+	 */
+	public void setfirstGame(boolean game){
+		this.firstgame = game;
 	}
 }

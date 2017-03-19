@@ -2,7 +2,15 @@ package de.tudarmstadt.informatik.fop.breakout.logic;
 
 import de.tudarmstadt.informatik.fop.breakout.ui.Block;
 import de.tudarmstadt.informatik.fop.breakout.ui.GamePanel;
+import de.tudarmstadt.informatik.fop.breakout.ui.SoundClips;
 
+/**
+ * Logic Einheit
+ * Zustaendig für Abfragen und den Ablauf des Spiels
+ * 
+ * @author Jan Rogge
+ *
+ */
 public class Logic implements Runnable {
 
 	GamePanel game;
@@ -11,65 +19,104 @@ public class Logic implements Runnable {
 	Player player;
 	private Block[][] blocklist;
 
+	/**
+	 * Konstruktor
+	 * 
+	 * @param game GamePanel(Anzeige des Spiels)
+	 */
 	public Logic(GamePanel game) {
 		this.game = game;
-		ball = new Ball(this);
-		player = new Player(this);
-		generateBlocks(new TransformMaps(3).loadMap());
 	}
 	
+	/**
+	 * Legt einen neuen Ball und Spieler an lädt eine neue Karte und startet ein neues Spiel
+	 */
 	public void newGame(){
+		SoundClips.getInstance().setFile(3);
+		ball = new Ball(this);
+		player = new Player(this);
+		generateBlocks(new TransformMaps(1).loadMap());
 		game.newGame();
 		game.generateBlocks(blocklist);
 		game.showPlayer(player);
-		ball = new Ball(this);
 	}
 	
+	/**
+	 * Gibt den Spieler zurueck
+	 * @return Player player
+	 */
 	public Player getPlayer(){
 		return player;
 	}
 	
+	/**
+	 * Gibt den Ball zurueck
+	 * @return Ball ball
+	 */
 	public Ball getBall(){
 		return ball;
 	}
 
+	/**
+	 * Ablauf des Spiels
+	 */
 	public void run() {
 		while (run) {
-			if (ball.move(game.getBlocks(), player.getPaddleX())) {
+			if (ball.move(game.getBlocks(), player.getPaddleX())) { //Bewegt den Ball einen Schritt und schaut ob der Ball nach unten rausgeflogen ist
 				player.decreaseLive();
 				game.livecounter(player.getHitsLeft());
 				game.moveBall(1000, 1000);
 				ball = new Ball(this);
 				run = false;
 			}
-			game.moveBall((int)ball.getX(), (int)ball.getY());
+			game.moveBall((int)ball.getX(), (int)ball.getY()); //Bewegt den ball auf der Anzeige zu der neuen Position
 			try {
-				Thread.sleep(8);
+				Thread.sleep(8); //wartet 8 millisekunden
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		// TODO Auto-generated method stub
-
 	}
 
+	/**
+	 * Setzt das run für den Thread
+	 * @param run boolean true or false zum anhalten des Threads
+	 */
 	public void setRun(boolean run) {
 		this.run = run;
 	}
 
+	/**
+	 * Gibt zurück ob der Thread aktuell läuft oder nicht
+	 * @return run 
+	 */
 	public boolean getRun() {
 		return run;
 	}
 
+	/**
+	 * Wird aufgerufen wenn ein Block getroffen wird
+	 * löscht diesen block vom Spielfield und aus der Liste
+	 * Wenn alle Blöcke weg sind wird das Spiel beendet
+	 * 
+	 * @param column x
+	 * @param row y
+	 */
 	public void blockhit(int column, int row) {
 		game.removeBlock(column, row);
 		blocklist[row][column] = null; // NEU
 		if(checkWin()){
 			game.gameende(true);
+			SoundClips.getInstance().setFile(4);
 		}
 	}
 
+	/**
+	 * Sucht einen Block anhand seiner ID aus der Liste an Blöcken
+	 * 
+	 * @param blockID ID des Blocks
+	 * @return Block Object
+	 */
 	public Block findBlock(String blockID){
 		for(int y = 1;y <=blocklist.length;y++){
 			for(int x = 1;x <=blocklist[y-1].length;x++){
@@ -84,11 +131,18 @@ public class Logic implements Runnable {
 		return null;
 	}
 
+	/**
+	 * Wird aufgerufen wenn das Spiel verloren wurde
+	 */
 	public void gameende() {
-		// TODO Auto-generated method stub
+		SoundClips.getInstance().setFile(4);
 		game.gameende(false);
-		
 	}
+	
+	/**
+	 * Ueberprueft ob die Liste an bloecken leer ist
+	 * @return true=wenn alle bloecke weg sind, false = sollte noch mindestens ein block vorhanden sein
+	 */
 	public boolean checkWin(){
 		for(int y = 1;y <=blocklist.length;y++){
 			for(int x = 1;x <=blocklist[y-1].length;x++){
@@ -100,10 +154,19 @@ public class Logic implements Runnable {
 		}
 		return true;
 	}
+	
+	/**
+	 * Bewegt den Spieler in der Anzeige nach links oder rechts
+	 * @param left true = links, false = rechts
+	 */
 	public void movePaddle(boolean left){
 		game.movePaddle(left);
 	}
 	
+	/**
+	 * Generiert aus einem 2D int Array eine Liste aller vorhandenen Bloecke
+	 * @param list 2D int Array mit werten von 0-4 und der groeße [10][16]
+	 */
 	public void generateBlocks(int[][] list){
 		blocklist = new Block[10][16];
 		for(int y = 1;y <=list.length;y++){

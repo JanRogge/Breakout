@@ -10,9 +10,9 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.FloatControl;
 
 /**
- * Sound ist dafï¿½r verantwortlich dass die Hintergrundmusik abgespielt wird
+ * BackgroundSounds ist dafuer verantwortlich dass die Hintergrundmusik abgespielt wird
  * 
- * @author Jan
+ * @author Jan Rogge
  */
 public class BackgroundSounds extends Thread {
 	private static long songPeriod;
@@ -36,6 +36,10 @@ public class BackgroundSounds extends Thread {
 	long i;
 	long temp;
 
+	/**
+	 * Konstruktor lädt beide Songs am Anfang und setzt die menu boolean
+	 * @param menu Menue aktiv oder nicht 
+	 */
 	public BackgroundSounds(boolean menu) {
 		this.menu = menu;
 		load();
@@ -48,7 +52,6 @@ public class BackgroundSounds extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				//music.open(audioFormat, sound, 0, size);
 				music.setMicrosecondPosition(0);
 				music.start();
 
@@ -60,7 +63,6 @@ public class BackgroundSounds extends Thread {
 				}
 				music.stop();
 
-				//music2.open(audioFormat2, sound2, 0, size2);
 				music2.setMicrosecondPosition(0);
 				music2.start();
 
@@ -71,17 +73,6 @@ public class BackgroundSounds extends Thread {
 					sleep(1000);
 				}
 				music2.stop();
-
-				// clipTime= music.getMicrosecondPosition();
-				//
-				// music.stop();
-				//
-				// sleep(6000);
-				//
-				//
-				// music.setMicrosecondPosition(clipTime);
-				// music.drain();
-				// music.start();
 			}
 
 			catch (Exception e) {
@@ -90,10 +81,17 @@ public class BackgroundSounds extends Thread {
 
 	}
 
+	/**
+	 * Setzten des Menue Statuses
+	 * @param menu
+	 */
 	public void setMenu(boolean menu) {
 		this.menu = menu;
 	}
 
+	/**
+	 * Laedt Song1 (Menue Musik)
+	 */
 	public void load() {
 		try {
 			song = AudioSystem.getAudioInputStream(new File(
@@ -116,6 +114,9 @@ public class BackgroundSounds extends Thread {
 
 	}
 
+	/**
+	 * Laedt Song2 (Game Musik)
+	 */
 	public void load2() {
 		try {
 			song2 = AudioSystem.getAudioInputStream(new File(
@@ -129,9 +130,6 @@ public class BackgroundSounds extends Thread {
 					/ (long) audioFormat2.getFrameRate();
 			music2 = (Clip) AudioSystem.getLine(info2);
 			music2.open(audioFormat2, sound2, 0, size2);
-			// gainControl2 = (FloatControl) music2
-			// .getControl(FloatControl.Type.MASTER_GAIN);
-			// gainControl2.setValue(-10.0f); // Reduce volume by 10 decibels.
 		} catch (Exception e) {
 
 		}

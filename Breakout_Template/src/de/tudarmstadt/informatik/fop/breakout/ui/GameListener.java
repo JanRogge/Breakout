@@ -6,21 +6,16 @@ import java.awt.event.KeyListener;
 import de.tudarmstadt.informatik.fop.breakout.logic.Logic;
 
 /**
- * Der GameListener sorgt daf�r das das Spiel erkennt welche Taste gedr�ckt wird
- * @author Jan
+ * Der GameListener sorgt dafuer das das Spiel erkennt welche Taste gedrueckt wird
+ * @author Jan Rogge
  */
 public class GameListener implements KeyListener{
-	
-	private String rightKey = "Rechts";
-	private String leftKey = "Links";
 	
 	
 	private static GameListener instance;
 	private GamePanel proto;
 	private Logic log;
 	
-	private boolean right;
-	private boolean left;
 	
 	/**
 	 * Das Singelton-Pattern
@@ -40,18 +35,15 @@ public class GameListener implements KeyListener{
 		this.log = log;
 	}
 	
-	/**
-	 * wird aufgerufen wenn eine Taste gedr�ckt wurde
-	 */
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 
 		if (arg0.getKeyCode() == 37) {
-			//left = true;
+			//Move left
 			log.movePaddle(true);
 		}
 		else if (arg0.getKeyCode() == 39) {
-			//right = true;
+			//Move right
 			log.movePaddle(false);
 		}
 		else if (arg0.getKeyCode() == 32){
@@ -72,51 +64,12 @@ public class GameListener implements KeyListener{
 		}
 
 	}
-	
-	/**
-	 * wird aufgerufen wenn eine Taste losgelassen wurde
-	 */
+
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-	}
-
-
-
-	public boolean isRight() {
-		return right;
-	}
-
-	public boolean isLeft() {
-		return left;
-	}
-	
-	
-	public String getLeft() {
-		return leftKey;
-	}
-	
-	public void setLeft(String left) {
-		if (left != null) {
-			leftKey = left;
-		}
-	}
-	
-	public String getRight() {
-		return rightKey;
-	}
-	
-	public void setRight(String right) {
-		if (right != null) {
-			rightKey = right;
-		}
-	}
-	
-	public void restart() {
-		left = false;
-		right = false;	
 	}
 }

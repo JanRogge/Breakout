@@ -1,6 +1,5 @@
 package de.tudarmstadt.informatik.fop.breakout.ui;
 
-import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -8,11 +7,14 @@ import javax.swing.JLabel;
 import de.tudarmstadt.informatik.fop.breakout.constants.GameParameters;
 import de.tudarmstadt.informatik.fop.breakout.interfaces.IHitable;
 
+/**
+ * Treffbarer Block des Typ JLabel 
+ * 
+ * @author Jan Rogge, Daniel Trageser
+ *
+ */
 public class Block extends JLabel implements IHitable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5646901583617268564L;
 	private static final int HEIGHT = 30;
 	private static final int WIDHT = 50;
@@ -21,6 +23,16 @@ public class Block extends JLabel implements IHitable{
 	private int type;
 	private String id;
 
+	/**
+	 * Konstruktor legt alle wichtigen Werte für den Block fest
+	 * 
+	 * Erzeugt Demobloecke fuer Tests
+	 * 
+	 * @param x X-Position des Blocks
+	 * @param y Y-Position des Blocks
+	 * @param health Leben des Blocks
+	 * @param id String ID des Blocks 
+	 */
 	public Block(int x, int y, int health, String id){
 		this.id = id;
 		this.health = health;
@@ -32,6 +44,8 @@ public class Block extends JLabel implements IHitable{
 		}
 		setSize(WIDHT, HEIGHT);
 		setLocation(SPACE +(WIDHT+SPACE)*(x-1), SPACE +(HEIGHT+SPACE)*(y-1));
+		
+		//Demo Bloecke
 		if(id.equals(GameParameters.TOP_BORDER_ID)){
 			setSize(800, 0);
 			setLocation(0,0);
@@ -42,12 +56,22 @@ public class Block extends JLabel implements IHitable{
 			setSize(0, 600);
 			setLocation(0,0);
 		}
+		//Ende Demo Bloecke
 	}
 	
+	/**
+	 * Gibt die ID des Blocks zurueck
+	 * @return id
+	 */
 	public String getID(){
 		return id;
 	}
 	
+	/**
+	 * Legt anhand der Startleben des Blocks einen Typen fuer den Block fest anhand dem spaeter die Bilder ausgewaehlt werden
+	 * 
+	 * @return int Typ des Blocks
+	 */
 	public int blockType(){
 		if(health == 2){
 			return 2;
@@ -60,12 +84,19 @@ public class Block extends JLabel implements IHitable{
 		}
 	}
 	
+	/**
+	 * Legt anhand des Typen vom Block und der Lebensanzahl das zu ladene Bild fest
+	 * 
+	 * @param health Leben des Blocks
+	 * @param type Typ des Blocks(Startleben)
+	 * @return String mit dem Pfad des bildes
+	 */
 	public String getFittingImageIconString(int health, int type){
 		switch(type){
-			//Block mit Raumschiff -> 4 Health Stufen
+			//Standart Block -> 1 Health Stufen
 			case(1):
 				return "images/block1_health1.png";
-			//Block mit Kanone -> 4 Health Stufen
+			//Standart Block  -> 2 Health Stufen
 			case(2):
 				switch(health){
 				case(1):
@@ -73,7 +104,7 @@ public class Block extends JLabel implements IHitable{
 				case(2):
 					return "images/block1_health3.png";
 				}
-			//Normaler Block -> 4 Health Stufen
+			//Block mit Kanone -> 3 Health Stufen
 			case(3):
 				switch(health){
 				case(1):
@@ -83,6 +114,7 @@ public class Block extends JLabel implements IHitable{
 				case(3):
 					return "images/block2_health3.png";
 				}
+			//Block mit Raumschiff -> 4 Health Stufen
 			case(4):
 				switch(health){
 				case(1):
@@ -99,25 +131,24 @@ public class Block extends JLabel implements IHitable{
 		}
 	}
 	
+	/**
+	 * Setzt die Bilder fuer den Block abhaenging von deren Leben
+	 */
 	public void background(){
 		switch(health){
 			case(1):
 				ImageIcon imageForOne = new ImageIcon(getFittingImageIconString(health, type));
 				setIcon(imageForOne);
-				setBackground(Color.BLACK);
 				break;
 			case(2):
-				setBackground(Color.RED);
 				ImageIcon imageForTwo = new ImageIcon(getFittingImageIconString(health, type));
 				setIcon(imageForTwo);
 				break;
 			case(3):
-				setBackground(Color.GREEN);
 				ImageIcon imageForThree = new ImageIcon(getFittingImageIconString(health, type));
 				setIcon(imageForThree);
 				break;
 			case(4):
-				setBackground(Color.CYAN);
 				ImageIcon imageForFour = new ImageIcon(getFittingImageIconString(health, type));
 				setIcon(imageForFour);
 				break;
@@ -127,8 +158,11 @@ public class Block extends JLabel implements IHitable{
 		}
 	}
 	
+	/**
+	 * Reduziert das Leben des Blocks um 1
+	 */
 	public void reduceHealth(){
-		health--;
+		setHitsLeft(getHitsLeft()-1); //Changed 18.03
 		background();
 	}
 
