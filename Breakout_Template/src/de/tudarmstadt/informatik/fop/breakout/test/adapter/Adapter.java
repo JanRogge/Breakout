@@ -34,9 +34,10 @@ public class Adapter implements GameParameters {
 		main.setVisible(false);
 		log = new Logic(main.getGamePanel());
 		main.setLogic(log);
+		log.newGame();
 		ball = log.getBall();
 		player = log.getPlayer();
-		log.newGame();
+		
 	}
 
 	/* ***************************************************
