@@ -12,7 +12,7 @@ import javax.sound.sampled.FloatControl;
 /**
  * BackgroundSounds ist dafuer verantwortlich dass die Hintergrundmusik abgespielt wird
  * 
- * @author Jan Rogge
+ * @author Jan Rogge , Markus Theuerkauf
  */
 public class BackgroundSounds extends Thread {
 	private static long songPeriod;
@@ -37,7 +37,7 @@ public class BackgroundSounds extends Thread {
 	long temp;
 
 	/**
-	 * Konstruktor lädt beide Songs am Anfang und setzt die menu boolean
+	 * Konstruktor lï¿½dt beide Songs am Anfang und setzt die menu boolean
 	 * @param menu Menue aktiv oder nicht 
 	 */
 	public BackgroundSounds(boolean menu) {

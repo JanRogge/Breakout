@@ -6,7 +6,7 @@ import de.tudarmstadt.informatik.fop.breakout.ui.SoundClips;
 
 /**
  * Logic Einheit
- * Zustaendig für Abfragen und den Ablauf des Spiels
+ * Zustaendig fï¿½r Abfragen und den Ablauf des Spiels
  * 
  * @author Jan Rogge
  *
@@ -29,13 +29,13 @@ public class Logic implements Runnable {
 	}
 	
 	/**
-	 * Legt einen neuen Ball und Spieler an lädt eine neue Karte und startet ein neues Spiel
+	 * Legt einen neuen Ball und Spieler an lï¿½dt eine neue Karte und startet ein neues Spiel
 	 */
 	public void newGame(){
 		SoundClips.getInstance().setFile(3);
 		ball = new Ball(this);
 		player = new Player(this);
-		generateBlocks(new TransformMaps(1).loadMap());
+		generateBlocks(new TransformMaps(6).loadMap());
 		game.newGame();
 		game.generateBlocks(blocklist);
 		game.showPlayer(player);
@@ -79,7 +79,7 @@ public class Logic implements Runnable {
 	}
 
 	/**
-	 * Setzt das run für den Thread
+	 * Setzt das run fï¿½r den Thread
 	 * @param run boolean true or false zum anhalten des Threads
 	 */
 	public void setRun(boolean run) {
@@ -87,7 +87,7 @@ public class Logic implements Runnable {
 	}
 
 	/**
-	 * Gibt zurück ob der Thread aktuell läuft oder nicht
+	 * Gibt zurï¿½ck ob der Thread aktuell lï¿½uft oder nicht
 	 * @return run 
 	 */
 	public boolean getRun() {
@@ -96,8 +96,8 @@ public class Logic implements Runnable {
 
 	/**
 	 * Wird aufgerufen wenn ein Block getroffen wird
-	 * löscht diesen block vom Spielfield und aus der Liste
-	 * Wenn alle Blöcke weg sind wird das Spiel beendet
+	 * lï¿½scht diesen block vom Spielfield und aus der Liste
+	 * Wenn alle Blï¿½cke weg sind wird das Spiel beendet
 	 * 
 	 * @param column x
 	 * @param row y
@@ -112,7 +112,7 @@ public class Logic implements Runnable {
 	}
 
 	/**
-	 * Sucht einen Block anhand seiner ID aus der Liste an Blöcken
+	 * Sucht einen Block anhand seiner ID aus der Liste an Blï¿½cken
 	 * 
 	 * @param blockID ID des Blocks
 	 * @return Block Object
@@ -165,7 +165,7 @@ public class Logic implements Runnable {
 	
 	/**
 	 * Generiert aus einem 2D int Array eine Liste aller vorhandenen Bloecke
-	 * @param list 2D int Array mit werten von 0-4 und der groeße [10][16]
+	 * @param list 2D int Array mit werten von 0-4 und der groeï¿½e [10][16]
 	 */
 	public void generateBlocks(int[][] list){
 		blocklist = new Block[10][16];

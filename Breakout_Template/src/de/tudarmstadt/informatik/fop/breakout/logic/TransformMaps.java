@@ -5,9 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * Transformer für die Maps in 2D int Arrays
+ * Transformer fï¿½r die Maps in 2D int Arrays
  * 
- * @author Adriano
+ * @author Adriano Rodrigues, Daniel Trageser
  *
  */
 public class TransformMaps {
@@ -26,6 +26,12 @@ public class TransformMaps {
 			path = "maps/level2.map";
 		} else if(map == 3){
 			path = "maps/level3.map";
+		} else if(map == 4){
+			path = "maps/level4.map";
+		} else if(map == 5){
+			path = "maps/level5.map";
+		} else if(map == 6){
+			path = "maps/level6.map";
 		} 
 		
 	}

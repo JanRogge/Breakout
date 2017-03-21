@@ -13,6 +13,11 @@ import de.tudarmstadt.informatik.fop.breakout.ui.Breakout;
 import de.tudarmstadt.informatik.fop.breakout.ui.MainFrame;
 import eea.engine.entity.Entity;
 
+/**
+ * 
+ * @author Jan Rogge, Markus Theuerkauf
+ *
+ */
 public class Adapter implements GameParameters {
 
   /*

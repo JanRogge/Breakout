@@ -8,7 +8,7 @@ import de.tudarmstadt.informatik.fop.breakout.logic.Logic;
 
 /**
  * Hauptfenster in dem die Panel liegen
- * @author Jan Rogge
+ * @author Jan Rogge, Adriano Rodrigues
  *
  */
 public class MainFrame extends JFrame{
@@ -62,7 +62,7 @@ public class MainFrame extends JFrame{
 	}
 	
 	/**
-	 * Setzt die Logic für den KeyListener
+	 * Setzt die Logic fï¿½r den KeyListener
 	 * @param log Logic die im KeyListener verwendet wird
 	 */
 	public void setLogic(Logic log){

@@ -12,7 +12,7 @@ import de.tudarmstadt.informatik.fop.breakout.interfaces.IHitable;
  * 
  * Treffbar und JLabel
  * 
- * @author Jan Rogge
+ * @author Jan Rogge, Daniel Trageser
  *
  */
 public class Player extends JLabel implements IHitable{
@@ -24,7 +24,7 @@ public class Player extends JLabel implements IHitable{
 	/**
 	 * Konstruktor Initialisiert alle wichtigen Werte
 	 * 
-	 * @param log Logic Object in der das Spiel läuft
+	 * @param log Logic Object in der das Spiel lï¿½uft
 	 */
 	public Player(Logic log){
 		this.log = log;

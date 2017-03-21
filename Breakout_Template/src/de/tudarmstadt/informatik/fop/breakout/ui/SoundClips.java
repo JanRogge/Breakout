@@ -12,7 +12,7 @@ import javax.sound.sampled.FloatControl;
 /**
  * SoundClips ist dafuer verantwortlich dass die Hintergrundmusik abgespielt wird
  * 
- * @author Jan Rogge
+ * @author Jan Rogge, Markus Theuerkauf
  */
 public class SoundClips extends Thread {
 	private static SoundClips instance;

@@ -16,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 /**
  * Anzeige des Menues
  * 
- * @author Jan Rogge
+ * @author Jan Rogge, Adriano Rodrigues
  *
  */
 public class MenuPanel extends JPanel{
