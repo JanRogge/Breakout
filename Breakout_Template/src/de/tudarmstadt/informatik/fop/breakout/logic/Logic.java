@@ -35,7 +35,7 @@ public class Logic implements Runnable {
 		SoundClips.getInstance().setFile(3);
 		ball = new Ball(this);
 		player = new Player(this);
-		generateBlocks(new TransformMaps(6).loadMap());
+		generateBlocks(new TransformMaps(1).loadMap()); //Map hier auswählen 1-6
 		game.newGame();
 		game.generateBlocks(blocklist);
 		game.showPlayer(player);

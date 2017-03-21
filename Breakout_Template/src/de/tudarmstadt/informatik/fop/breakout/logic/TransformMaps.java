@@ -16,6 +16,7 @@ public class TransformMaps {
 	
 	/**
 	 * Konstruktor waehlt aus welche Map geladen werden soll
+	 * Neue Maps hier anlegen
 	 * 
 	 * @param map ID der Map die geladen werden soll
 	 */
